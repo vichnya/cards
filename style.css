@@ -1,155 +1,89 @@
-* {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+* { box-sizing: border-box; font-family: Arial, sans-serif; }
+body { margin:0; background: #f6fff6; color: #2d3a2d; }
 
-body {
-    margin: 0;
-    background: #f6fff6;
-    color: #2d3a2d;
-}
+/* AUTH */
+.auth { max-width:300px; margin:120px auto; background:white; padding:30px; border-radius:20px; text-align:center; }
+.auth input { width:100%; padding:8px; margin:6px 0; }
+.auth-buttons { display:flex; gap:10px; justify-content:center; }
 
-/* ===== AUTH ===== */
-.auth {
-    max-width: 300px;
-    margin: 120px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-}
+/* HEADER */
+header { display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#e6ffe6; border-bottom:2px solid #c6f0c6; }
+.logo { display:flex; gap:10px; font-size:18px; font-weight:bold; align-items:center; }
+.burger { font-size:24px; cursor:pointer; }
+.user-area { display:flex; gap:15px; align-items:center; }
 
-.auth input {
-    width: 100%;
-    padding: 8px;
-    margin: 6px 0;
-}
+/* LAYOUT */
+.container { display:flex; height: calc(100vh - 60px); }
 
-.auth-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
+/* SIDEBAR */
+.sidebar { width:260px; background:#f0fff0; border-right:2px solid #c6f0c6; padding:15px; transition: transform 0.3s ease; position:relative; }
+.sidebar.hidden { transform: translateX(-100%); }
+.sidebar ul { list-style:none; padding:0; }
+.sidebar li { padding:10px; border-radius:12px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; position:relative; }
+.sidebar li:hover { background:#d9f9d9; }
 
-/* ===== HEADER ===== */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 20px;
-    background: #e6ffe6;
-    border-bottom: 2px solid #c6f0c6;
-@@ -45,6 +34,13 @@
-    gap: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    align-items: center;
-}
-
-.burger {
-    font-size: 24px;
-    cursor: pointer;
-    margin-right: 10px;
-}
-
-.user-area {
-@@ -62,9 +58,14 @@
-/* ===== SIDEBAR ===== */
-.sidebar {
-    width: 260px;
-    padding: 15px;
-    background: #f0fff0;
-    border-right: 2px solid #c6f0c6;
-    padding: 15px;
-    transition: transform 0.3s ease;
-}
-
-.sidebar.hidden {
-    transform: translateX(-100%);
-}
-
-.sidebar ul {
-@@ -88,7 +89,7 @@
-    padding: 20px;
-}
-
-/* ===== FOLDERS / CARDS ===== */
-/* ===== CARDS GRID ===== */
-.cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-@@ -108,31 +109,58 @@
-    transform: scale(1.05);
-}
-
-/* ===== FULLSCREEN ===== */
-/* ===== FULLSCREEN CARD ===== */
-.fullscreen-card {
-    position: fixed;
-    inset: 0;
-    background: rgba(240,255,240,0.95);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    perspective: 1200px;
-}
-
-.card {
-    background: white;
-/* 3D container */
-.card-container {
-    width: 60%;
-    min-height: 300px;
-    position: relative;
-}
-
-/* Card */
-.card {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.7s;
-    cursor: pointer;
-}
-
-.card.flipped {
-    transform: rotateY(180deg);
-}
-
-/* Sides */
-.card-side {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: white;
-    border-radius: 30px;
-    padding: 40px;
-    font-size: 24px;
-    text-align: center;
-    transition: transform 0.6s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backface-visibility: hidden;
-}
-
-.card.flipped {
-.card-back {
-    transform: rotateY(180deg);
-}
-
-/* ===== NAV ===== */
-.nav {
-    position: absolute;
-    font-size: 32px;
-@@ -148,9 +176,9 @@
+/* Меню папки */
+.folder-menu {
     position: absolute;
     top: 30px;
-    right: 30px;
-    background: none;
-    border: none;
+    left: 100%;
+    background: white;
+    border: 1px solid #c6f0c6;
+    border-radius: 8px;
+    padding: 5px;
+    display: none;
+    flex-direction: column;
+    z-index: 100;
+}
+.folder-menu button { margin:2px 0; }
+
+/* MAIN */
+.main { flex:1; padding:20px; position:relative; }
+
+/* ПАНЕЛЬ НАД КАРТОЧКАМИ */
+.folder-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 20px;
+}
+#folderCardMenuBtn {
     font-size: 24px;
     background: none;
+    border: none;
     cursor: pointer;
 }
+.card-actions-menu {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background:white;
+    border:1px solid #c6f0c6;
+    border-radius:8px;
+    display:none;
+    flex-direction: column;
+    z-index:200;
+}
+.card-actions-menu button { margin:2px 0; }
+
+/* Карточки */
+.cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:20px; }
+.card-preview { background:white; padding:40px 20px; border-radius:20px; cursor:pointer; text-align:center; transition: transform 0.2s, filter 0.2s; }
+.card-selected { background:#d0f0d0; transform: scale(0.95); filter: brightness(0.85); }
+
+/* FULLSCREEN CARD */
+.fullscreen-card { position:fixed; inset:0; background: rgba(240,255,240,0.95); display:flex; align-items:center; justify-content:center; perspective:1200px; z-index:300; }
+.card-container { width:60%; min-height:300px; position:relative; }
+.card { width:100%; height:100%; position:relative; transform-style: preserve-3d; transition: transform 0.7s; cursor:pointer; }
+.card.flipped { transform: rotateY(180deg); }
+.card-side { position:absolute; width:100%; height:100%; background:white; border-radius:30px; padding:40px; font-size:24px; display:flex; align-items:center; justify-content:center; backface-visibility:hidden; }
+.card-back { transform: rotateY(180deg); }
+
+/* NAV */
+.nav { position:absolute; font-size:32px; background:none; border:none; cursor:pointer; }
+.left { left:40px; } .right { right:40px; }
+.close { position:absolute; top:30px; right:30px; background:none; border:none; font-size:24px; cursor:pointer; }
+
+/* BUTTONS */
+button { background:#c6f0c6; border:none; border-radius:12px; padding:8px 14px; cursor:pointer; }

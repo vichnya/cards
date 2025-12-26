@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Учебные карточки</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Учебные карточки</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ===== АВТОРИЗАЦИЯ ===== -->
+<!-- ===== AUTH ===== -->
 <div id="authArea" class="auth">
     <h2>Вход / Регистрация</h2>
     <input id="email" placeholder="Email">
@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<!-- ===== ОСНОВНОЕ ПРИЛОЖЕНИЕ ===== -->
+<!-- ===== APP ===== -->
 <div id="appArea" style="display:none">
 
 <header>
@@ -27,8 +27,6 @@
         <span>🃏</span>
         <div>Учебные карточки</div>
     </div>
-
-
     <div class="user-area">
         <span id="userInfo"></span>
         <button onclick="logout()">Выйти</button>
@@ -36,32 +34,34 @@
 </header>
 
 <div class="container">
-
-    <!-- ===== SIDEBAR ===== -->
+    <!-- SIDEBAR -->
     <aside class="sidebar">
         <h3>Папки</h3>
         <input id="folderName" placeholder="Новая папка">
         <button onclick="createFolder()">Добавить</button>
-        <ul id="foldersList"></ul>
+        <ul id="foldersList" class="draggable-list"></ul>
     </aside>
 
-    <!-- ===== MAIN ===== -->
+    <!-- MAIN -->
     <main class="main">
         <h2 id="currentFolderTitle"></h2>
 
-        <div class="cards-grid" id="cardsGrid"></div>
-
+        <!-- Форма добавления карточек -->
         <div class="add-card">
             <input id="question" placeholder="Вопрос">
             <input id="answer" placeholder="Ответ">
             <button onclick="addCard()">Добавить карточку</button>
         </div>
+
+        <!-- Сетка карточек -->
+        <div class="cards-grid" id="cardsGrid" class="draggable-list"></div>
+
     </main>
 </div>
 
 </div>
 
-<!-- ===== FULLSCREEN CARD ===== -->
+<!-- FULLSCREEN CARD -->
 <div id="fullscreen" class="fullscreen-card" style="display:none">
     <button class="nav left" onclick="prevCard()">⬅</button>
 
@@ -79,5 +79,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
-
