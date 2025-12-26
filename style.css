@@ -35,7 +35,7 @@ header { display:flex; justify-content:space-between; align-items:center; paddin
 .folder-menu {
     position: absolute;
     top:0;
-    right:100%; /* открывается влево */
+    right:100%;
     background: #f6fff6;
     border:1px solid #c6f0c6;
     display:none;
@@ -68,7 +68,7 @@ header { display:flex; justify-content:space-between; align-items:center; paddin
 .card-actions-menu {
     position: absolute;
     top:30px;
-    left:100%; /* открывается вправо */
+    left:100%;
     background:#f6fff6;
     border:1px solid #c6f0c6;
     display:none;
@@ -87,7 +87,7 @@ header { display:flex; justify-content:space-between; align-items:center; paddin
 
 /* === ADD CARD PANEL === */
 .add-card { margin-bottom:20px; display:flex; gap:10px; }
-.add-card input { flex:1; padding:6px; border-radius:6px; border:1px solid #c6f0c6; }
+.add-card textarea { flex:1; padding:6px; border-radius:6px; border:1px solid #c6f0c6; resize: vertical; min-height:50px; }
 .add-card button { padding:6px 12px; background:#b2e6a1; border:none; border-radius:6px; cursor:pointer; transition: background 0.2s; }
 .add-card button:hover { background:#9bd18f; }
 
@@ -96,13 +96,72 @@ header { display:flex; justify-content:space-between; align-items:center; paddin
 .card-preview { background:white; padding:40px 20px; border-radius:20px; cursor:pointer; text-align:center; transition: transform 0.2s, filter 0.2s; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
 .card-selected { background:#d0f0d0; transform: scale(0.95); filter: brightness(0.85); }
 
+/* === FOLDER-CARDS GRID (главная страница) === */
+.cards-grid .folder-card {
+    background:#e6ffe6;
+    border:2px solid #b2e6a1;
+    border-radius:20px;
+    height:120px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:18px;
+    cursor:pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.cards-grid .folder-card:hover {
+    transform:scale(1.05);
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
 /* === FULLSCREEN CARD === */
-.fullscreen-card { position:fixed; inset:0; background: rgba(240,255,240,0.95); display:flex; align-items:center; justify-content:center; perspective:1200px; z-index:300; }
-.card-container { width:60%; min-height:300px; position:relative; }
-.card { width:100%; height:100%; position:relative; transform-style: preserve-3d; transition: transform 0.7s; cursor:pointer; }
+.fullscreen-card { 
+    position:fixed; inset:0; 
+    background: rgba(240,255,240,0.95); 
+    display:flex; align-items:center; justify-content:center; 
+    perspective:1200px; 
+    z-index:300; 
+}
+
+.card-container { 
+    width:60%; 
+    aspect-ratio:16/9; /* фиксируем 16:9 */
+    position:relative; 
+}
+
+.card { 
+    width:100%; 
+    height:100%; 
+    position:relative; 
+    transform-style: preserve-3d; 
+    transition: transform 0.7s; 
+    cursor:pointer; 
+}
+
 .card.flipped { transform: rotateY(180deg); }
-.card-side { position:absolute; width:100%; height:100%; background:white; border-radius:30px; padding:40px; font-size:24px; display:flex; align-items:center; justify-content:center; backface-visibility:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.2);}
+
+.card-side { 
+    position:absolute; 
+    width:100%; 
+    height:100%; 
+    background:white; 
+    border-radius:30px; 
+    padding:20px; 
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    backface-visibility:hidden; 
+    box-shadow:0 2px 10px rgba(0,0,0,0.2);
+    overflow:hidden;
+    text-align:center;
+    font-size: clamp(16px, 4vw, 40px); /* текст масштабируется в зависимости от размера контейнера */
+    word-wrap: break-word; 
+    line-height:1.2;
+}
+
 .card-back { transform: rotateY(180deg); }
+
 
 /* === NAV BUTTONS === */
 .nav { position:absolute; font-size:32px; background:none; border:none; cursor:pointer; }
