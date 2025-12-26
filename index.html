@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Образовательные карточки</title>
+</head>
+<body>
+
+<h1>Образовательные карточки</h1>
+
+<!-- СОЗДАНИЕ ПАПКИ -->
+<h2>Создать папку</h2>
+<input id="folderName" placeholder="Название папки">
+<button onclick="createFolder()">Создать</button>
+
+<hr>
+
+<!-- СПИСОК ПАПОК -->
+<h2>Папки</h2>
+<ul id="foldersList"></ul>
+
+<hr>
+
+<!-- РАБОТА С ПАПКОЙ -->
+<div id="folderArea" style="display:none;">
+    <h2 id="currentFolderTitle"></h2>
+
+    <h3>Создать карточку</h3>
+    <input id="question" placeholder="Вопрос">
+    <input id="answer" placeholder="Ответ">
+    <button onclick="addCard()">Добавить карточку</button>
+
+    <hr>
+
+    <h3>Карточки</h3>
+    <div id="cardArea"
+         onclick="flipCard()"
+         style="border:1px solid black; padding:20px; width:300px;">
+        Нажмите на карточку
+    </div>
+
+    <br>
+    <button onclick="prevCard()">←</button>
+    <button onclick="nextCard()">→</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
