@@ -19,22 +19,11 @@ body {
     text-align: center;
 }
 
-.auth input {
-    width: 100%;
-    padding: 8px;
-    margin: 6px 0;
-}
-
-.auth-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
 /* ===== HEADER ===== */
 header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 12px 20px;
     background: #e6ffe6;
     border-bottom: 2px solid #c6f0c6;
@@ -45,6 +34,13 @@ header {
     gap: 10px;
     font-size: 18px;
     font-weight: bold;
+    align-items: center;
+}
+
+.burger {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
 .user-area {
@@ -62,9 +58,14 @@ header {
 /* ===== SIDEBAR ===== */
 .sidebar {
     width: 260px;
-    padding: 15px;
     background: #f0fff0;
     border-right: 2px solid #c6f0c6;
+    padding: 15px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
 }
 
 .sidebar ul {
@@ -88,7 +89,7 @@ header {
     padding: 20px;
 }
 
-/* ===== FOLDERS / CARDS ===== */
+/* ===== CARDS GRID ===== */
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -108,7 +109,7 @@ header {
     transform: scale(1.05);
 }
 
-/* ===== FULLSCREEN ===== */
+/* ===== FULLSCREEN CARD ===== */
 .fullscreen-card {
     position: fixed;
     inset: 0;
@@ -116,23 +117,50 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    perspective: 1200px;
 }
 
-.card {
-    background: white;
+/* 3D container */
+.card-container {
     width: 60%;
     min-height: 300px;
-    border-radius: 30px;
-    padding: 40px;
-    font-size: 24px;
-    text-align: center;
-    transition: transform 0.6s;
+    position: relative;
+}
+
+/* Card */
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.7s;
+    cursor: pointer;
 }
 
 .card.flipped {
     transform: rotateY(180deg);
 }
 
+/* Sides */
+.card-side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 30px;
+    padding: 40px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+/* ===== NAV ===== */
 .nav {
     position: absolute;
     font-size: 32px;
@@ -148,9 +176,9 @@ header {
     position: absolute;
     top: 30px;
     right: 30px;
+    background: none;
     border: none;
     font-size: 24px;
-    background: none;
     cursor: pointer;
 }
 
