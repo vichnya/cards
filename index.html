@@ -8,40 +8,54 @@
 
 <h1>Образовательные карточки</h1>
 
-<!-- СОЗДАНИЕ ПАПКИ -->
-<h2>Создать папку</h2>
-<input id="folderName" placeholder="Название папки">
-<button onclick="createFolder()">Создать</button>
+<!-- АВТОРИЗАЦИЯ -->
+<div id="authArea">
+    <h2>Вход / регистрация</h2>
+    <input id="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Пароль">
+    <br><br>
+    <button onclick="register()">Зарегистрироваться</button>
+    <button onclick="login()">Войти</button>
+</div>
 
-<hr>
-
-<!-- СПИСОК ПАПОК -->
-<h2>Папки</h2>
-<ul id="foldersList"></ul>
-
-<hr>
-
-<!-- РАБОТА С ПАПКОЙ -->
-<div id="folderArea" style="display:none;">
-    <h2 id="currentFolderTitle"></h2>
-
-    <h3>Создать карточку</h3>
-    <input id="question" placeholder="Вопрос">
-    <input id="answer" placeholder="Ответ">
-    <button onclick="addCard()">Добавить карточку</button>
+<!-- ПРИЛОЖЕНИЕ -->
+<div id="appArea" style="display:none;">
+    <p id="userInfo"></p>
+    <button onclick="logout()">Выйти</button>
 
     <hr>
 
-    <h3>Карточки</h3>
-    <div id="cardArea"
-         onclick="flipCard()"
-         style="border:1px solid black; padding:20px; width:300px;">
-        Нажмите на карточку
-    </div>
+    <h2>Создать папку</h2>
+    <input id="folderName" placeholder="Название папки">
+    <button onclick="createFolder()">Создать</button>
 
-    <br>
-    <button onclick="prevCard()">←</button>
-    <button onclick="nextCard()">→</button>
+    <hr>
+
+    <h2>Папки</h2>
+    <ul id="foldersList"></ul>
+
+    <hr>
+
+    <div id="folderArea" style="display:none;">
+        <h2 id="currentFolderTitle"></h2>
+
+        <h3>Создать карточку</h3>
+        <input id="question" placeholder="Вопрос">
+        <input id="answer" placeholder="Ответ">
+        <button onclick="addCard()">Добавить</button>
+
+        <hr>
+
+        <div id="cardArea"
+             onclick="flipCard()"
+             style="border:1px solid black; padding:20px; width:300px;">
+            Карточек нет
+        </div>
+
+        <br>
+        <button onclick="prevCard()">←</button>
+        <button onclick="nextCard()">→</button>
+    </div>
 </div>
 
 <script src="script.js"></script>
