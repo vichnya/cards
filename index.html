@@ -23,9 +23,11 @@
 
 <header>
     <div class="logo">
+        <div class="burger" onclick="toggleSidebar()">☰</div>
         <span>🃏</span>
         <div>Учебные карточки</div>
     </div>
+
 
     <div class="user-area">
         <span id="userInfo"></span>
@@ -62,7 +64,14 @@
 <!-- ===== FULLSCREEN CARD ===== -->
 <div id="fullscreen" class="fullscreen-card" style="display:none">
     <button class="nav left" onclick="prevCard()">⬅</button>
-    <div id="card" class="card" onclick="flipCard()"></div>
+
+    <div class="card-container">
+        <div id="card" class="card" onclick="flipCard()">
+            <div class="card-side card-front" id="cardFront"></div>
+            <div class="card-side card-back" id="cardBack"></div>
+        </div>
+    </div>
+
     <button class="nav right" onclick="nextCard()">➡</button>
     <button class="close" onclick="closeFullscreen()">✖</button>
 </div>
@@ -70,3 +79,5 @@
 <script src="script.js"></script>
 </body>
 </html>
+
+
