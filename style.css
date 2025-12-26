@@ -1,89 +1,114 @@
+/* === GLOBAL === */
 * { box-sizing: border-box; font-family: Arial, sans-serif; }
 body { margin:0; background: #f6fff6; color: #2d3a2d; }
 
-/* AUTH */
+/* === AUTH === */
 .auth { max-width:300px; margin:120px auto; background:white; padding:30px; border-radius:20px; text-align:center; }
-.auth input { width:100%; padding:8px; margin:6px 0; }
+.auth input { width:100%; padding:8px; margin:6px 0; border-radius:6px; border:1px solid #c6f0c6; }
 .auth-buttons { display:flex; gap:10px; justify-content:center; }
+.auth-buttons button { background:#b2e6a1; transition: background 0.2s; }
+.auth-buttons button:hover { background:#9bd18f; }
 
-/* HEADER */
+/* === HEADER === */
 header { display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:#e6ffe6; border-bottom:2px solid #c6f0c6; }
 .logo { display:flex; gap:10px; font-size:18px; font-weight:bold; align-items:center; }
-.burger { font-size:24px; cursor:pointer; }
+.burger { font-size:24px; cursor:pointer; padding:5px; border-radius:6px; transition: background 0.2s; }
+.burger:hover { background:#d0f0d0; }
 .user-area { display:flex; gap:15px; align-items:center; }
+.user-area button { padding:5px 10px; background:#b2e6a1; border:none; border-radius:6px; cursor:pointer; transition: background 0.2s; }
+.user-area button:hover { background:#9bd18f; }
 
-/* LAYOUT */
+/* === LAYOUT === */
 .container { display:flex; height: calc(100vh - 60px); }
 
-/* SIDEBAR */
+/* === SIDEBAR === */
 .sidebar { width:260px; background:#f0fff0; border-right:2px solid #c6f0c6; padding:15px; transition: transform 0.3s ease; position:relative; }
 .sidebar.hidden { transform: translateX(-100%); }
-.sidebar ul { list-style:none; padding:0; }
-.sidebar li { padding:10px; border-radius:12px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; position:relative; }
+.sidebar input { width:100%; padding:6px; margin-bottom:8px; border-radius:6px; border:1px solid #c6f0c6; }
+.sidebar button { width:100%; padding:6px; margin-bottom:6px; border-radius:6px; background:#b2e6a1; border:none; cursor:pointer; transition: background 0.2s; }
+.sidebar button:hover { background:#9bd18f; }
+.sidebar ul { list-style:none; padding:0; margin:0; }
+.sidebar li { padding:10px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; position:relative; border-radius:10px; }
 .sidebar li:hover { background:#d9f9d9; }
 
-/* Меню папки */
+/* === FOLDER CONTEXT MENU === */
 .folder-menu {
     position: absolute;
-    top: 30px;
-    left: 100%;
-    background: white;
-    border: 1px solid #c6f0c6;
-    border-radius: 8px;
-    padding: 5px;
-    display: none;
+    top:0;
+    right:100%; /* открывается влево */
+    background: #f6fff6;
+    border:1px solid #c6f0c6;
+    display:none;
     flex-direction: column;
-    z-index: 100;
+    z-index:100;
+    min-width:140px;
 }
-.folder-menu button { margin:2px 0; }
+.folder-menu button {
+    padding:6px 12px;
+    border:none;
+    background:none;
+    text-align:left;
+    cursor:pointer;
+}
+.folder-menu button:hover { background:#d0f0d0; }
 
-/* MAIN */
+/* === MAIN === */
 .main { flex:1; padding:20px; position:relative; }
 
-/* ПАНЕЛЬ НАД КАРТОЧКАМИ */
+/* === FOLDER HEADER === */
 .folder-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content:flex-start;
+    gap:10px;
     position: relative;
     margin-bottom: 20px;
 }
-#folderCardMenuBtn {
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
+#folderCardMenuBtn { margin-left:5px; font-size:20px; background:none; border:none; cursor:pointer; }
 .card-actions-menu {
     position: absolute;
-    top: 40px;
-    right: 0;
-    background:white;
+    top:30px;
+    left:100%; /* открывается вправо */
+    background:#f6fff6;
     border:1px solid #c6f0c6;
-    border-radius:8px;
     display:none;
     flex-direction: column;
     z-index:200;
+    min-width:160px;
 }
-.card-actions-menu button { margin:2px 0; }
+.card-actions-menu button {
+    padding:6px 12px;
+    border:none;
+    background:none;
+    text-align:left;
+    cursor:pointer;
+}
+.card-actions-menu button:hover { background:#d0f0d0; }
 
-/* Карточки */
+/* === ADD CARD PANEL === */
+.add-card { margin-bottom:20px; display:flex; gap:10px; }
+.add-card input { flex:1; padding:6px; border-radius:6px; border:1px solid #c6f0c6; }
+.add-card button { padding:6px 12px; background:#b2e6a1; border:none; border-radius:6px; cursor:pointer; transition: background 0.2s; }
+.add-card button:hover { background:#9bd18f; }
+
+/* === CARDS GRID === */
 .cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:20px; }
-.card-preview { background:white; padding:40px 20px; border-radius:20px; cursor:pointer; text-align:center; transition: transform 0.2s, filter 0.2s; }
+.card-preview { background:white; padding:40px 20px; border-radius:20px; cursor:pointer; text-align:center; transition: transform 0.2s, filter 0.2s; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
 .card-selected { background:#d0f0d0; transform: scale(0.95); filter: brightness(0.85); }
 
-/* FULLSCREEN CARD */
+/* === FULLSCREEN CARD === */
 .fullscreen-card { position:fixed; inset:0; background: rgba(240,255,240,0.95); display:flex; align-items:center; justify-content:center; perspective:1200px; z-index:300; }
 .card-container { width:60%; min-height:300px; position:relative; }
 .card { width:100%; height:100%; position:relative; transform-style: preserve-3d; transition: transform 0.7s; cursor:pointer; }
 .card.flipped { transform: rotateY(180deg); }
-.card-side { position:absolute; width:100%; height:100%; background:white; border-radius:30px; padding:40px; font-size:24px; display:flex; align-items:center; justify-content:center; backface-visibility:hidden; }
+.card-side { position:absolute; width:100%; height:100%; background:white; border-radius:30px; padding:40px; font-size:24px; display:flex; align-items:center; justify-content:center; backface-visibility:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.2);}
 .card-back { transform: rotateY(180deg); }
 
-/* NAV */
+/* === NAV BUTTONS === */
 .nav { position:absolute; font-size:32px; background:none; border:none; cursor:pointer; }
 .left { left:40px; } .right { right:40px; }
 .close { position:absolute; top:30px; right:30px; background:none; border:none; font-size:24px; cursor:pointer; }
 
-/* BUTTONS */
-button { background:#c6f0c6; border:none; border-radius:12px; padding:8px 14px; cursor:pointer; }
+/* === BUTTONS GLOBAL === */
+button { background:#c6f0c6; border:none; border-radius:12px; padding:8px 14px; cursor:pointer; transition: background 0.2s; }
+button:hover { background:#9bd18f; }
