@@ -1,3 +1,6 @@
+const menuBtn = document.createElement("button");
+menuBtn.textContent = "⋮";
+menuBtn.className = "folder-menu-btn";
 document.addEventListener("DOMContentLoaded", () => {
     // События авторизации
     document.getElementById("loginBtn").addEventListener("click", login);

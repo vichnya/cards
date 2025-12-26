@@ -13,8 +13,8 @@
     <input id="email" placeholder="Email">
     <input id="password" type="password" placeholder="Пароль">
     <div class="auth-buttons">
-        <button id="loginBtn">Войти</button>
-        <button id="registerBtn">Создать аккаунт</button>
+        <button onclick="login()">Войти</button>
+        <button onclick="register()">Создать аккаунт</button>
     </div>
 </div>
 
@@ -38,46 +38,43 @@
     <aside class="sidebar">
         <h3>Папки</h3>
         <input id="folderName" placeholder="Новая папка">
-        <button id="addFolderBtn">Добавить</button>
+        <button onclick="createFolder()">Добавить</button>
         <ul id="foldersList"></ul>
     </aside>
 
     <!-- MAIN -->
     <main class="main">
         <div class="folder-header">
-            <h2 id="currentFolderTitle">Название папки</h2>
+            <h2 id="currentFolderTitle">Мои папки</h2>
             <button id="folderCardMenuBtn">⋮</button>
             <div id="cardActionsMenu" class="card-actions-menu">
-                <button id="editCardBtn">Редактировать карточку</button>
-                <button id="deleteCardBtn">Удалить</button>
+                <button onclick="enterEditMode()">Редактировать карточку</button>
+                <button onclick="enterDeleteMode()">Удалить</button>
             </div>
         </div>
 
         <!-- Форма добавления карточек -->
         <div class="add-card">
-            <input id="question" placeholder="Вопрос">
-            <input id="answer" placeholder="Ответ">
-            <button id="addCardBtn">Добавить карточку</button>
+            <textarea id="question" placeholder="Лицевая сторона"></textarea>
+            <textarea id="answer" placeholder="Задняя сторона"></textarea>
+            <button id="addCardBtn" onclick="addCard()">Добавить карточку</button>
         </div>
 
         <!-- Сетка карточек -->
         <div class="cards-grid" id="cardsGrid"></div>
     </main>
 </div>
-
 </div>
 
 <!-- FULLSCREEN CARD -->
 <div id="fullscreen" class="fullscreen-card" style="display:none">
     <button class="nav left" onclick="prevCard()">⬅</button>
-
     <div class="card-container">
         <div id="card" class="card" onclick="flipCard()">
             <div class="card-side card-front" id="cardFront"></div>
             <div class="card-side card-back" id="cardBack"></div>
         </div>
     </div>
-
     <button class="nav right" onclick="nextCard()">➡</button>
     <button class="close" onclick="closeFullscreen()">✖</button>
 </div>
