@@ -22,29 +22,14 @@ header { display:flex; justify-content:space-between; align-items:center; paddin
 .sidebar li { padding:10px; border-radius:12px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
 .sidebar li:hover { background:#d9f9d9; }
 
-/* DROPDOWN MENU для папок и карточек */
-.dropdown {
-    position: absolute;
-    background: white;
-    border: 1px solid #c6f0c6;
-    border-radius: 8px;
-    padding: 5px;
-    display: none;
-    flex-direction: column;
-    z-index: 100;
-}
-.dropdown button { margin:2px 0; }
-
 /* MAIN */
-.main { flex:1; padding:20px; position:relative; }
-
-/* Форма добавления карточек */
-.add-card { margin-bottom:20px; display:flex; gap:10px; }
+.main { flex:1; padding:20px; }
 
 /* CARDS GRID */
 .cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:20px; }
-.card-preview { background:white; padding:40px 20px; border-radius:20px; cursor:pointer; text-align:center; transition: transform 0.3s; position:relative; }
+.card-preview { background:white; padding:40px 20px; border-radius:20px; cursor:pointer; text-align:center; transition: transform 0.3s; display:flex; flex-direction:column; justify-content:center; align-items:center; }
 .card-preview:hover { transform: scale(1.05); }
+.card-preview input[type="checkbox"] { margin-top:10px; }
 
 /* FULLSCREEN CARD */
 .fullscreen-card { position:fixed; inset:0; background: rgba(240,255,240,0.95); display:flex; align-items:center; justify-content:center; perspective:1200px; }
