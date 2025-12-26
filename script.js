@@ -3,21 +3,20 @@ let currentUser = localStorage.getItem("currentUser");
 
 let currentFolder = null;
 let currentCardIndex = 0;
-let showQuestion = true;
+let flipped = false;
+
+// ===== BURGER =====
+function toggleSidebar() {
+    document.querySelector(".sidebar").classList.toggle("hidden");
+}
 
 // ===== AUTH =====
 function register() {
-    const email = emailInput().value.trim();
-    const password = passwordInput().value.trim();
+    const email = email.value.trim();
+    const password = password.value.trim();
 
-    if (!email || !password) {
-        alert("Введите email и пароль");
-        return;
-    }
-    if (users[email]) {
-        alert("Аккаунт с таким email уже существует");
-        return;
-    }
+    if (!email || !password) return alert("Введите email и пароль");
+    if (users[email]) return alert("Аккаунт уже существует");
 
     users[email] = { password, folders: {} };
     save();
@@ -25,16 +24,14 @@ function register() {
 }
 
 function login() {
-    const email = emailInput().value.trim();
-    const password = passwordInput().value.trim();
+    const emailVal = email.value.trim();
+    const passVal = password.value.trim();
 
-    if (!users[email] || users[email].password !== password) {
-        alert("Неверный email или пароль");
-        return;
-    }
+    if (!users[emailVal] || users[emailVal].password !== passVal)
+        return alert("Неверный email или пароль");
 
-    currentUser = email;
-    localStorage.setItem("currentUser", email);
+    currentUser = emailVal;
+    localStorage.setItem("currentUser", emailVal);
     showApp();
 }
 
@@ -44,18 +41,15 @@ function logout() {
 }
 
 function showApp() {
-    document.getElementById("authArea").style.display = "none";
-    document.getElementById("appArea").style.display = "block";
-    document.getElementById("userInfo").textContent = currentUser;
+    authArea.style.display = "none";
+    appArea.style.display = "block";
+    userInfo.textContent = currentUser;
     renderFolders();
 }
 
-function emailInput() { return document.getElementById("email"); }
-function passwordInput() { return document.getElementById("password"); }
-
 // ===== FOLDERS =====
 function createFolder() {
-    const name = document.getElementById("folderName").value.trim();
+    const name = folderName.value.trim();
     if (!name) return;
 
     users[currentUser].folders[name] = [];
@@ -64,27 +58,25 @@ function createFolder() {
 }
 
 function renderFolders() {
-    const list = document.getElementById("foldersList");
-    list.innerHTML = "";
-
+    foldersList.innerHTML = "";
     for (let name in users[currentUser].folders) {
         const li = document.createElement("li");
         li.textContent = name;
         li.onclick = () => openFolder(name);
-        list.appendChild(li);
+        foldersList.appendChild(li);
     }
 }
 
 function openFolder(name) {
     currentFolder = name;
-    document.getElementById("currentFolderTitle").textContent = name;
+    currentFolderTitle.textContent = name;
     renderCards();
 }
 
 // ===== CARDS =====
 function addCard() {
-    const q = document.getElementById("question").value.trim();
-    const a = document.getElementById("answer").value.trim();
+    const q = question.value.trim();
+    const a = answer.value.trim();
     if (!q || !a) return;
 
     users[currentUser].folders[currentFolder].push({ q, a });
@@ -93,53 +85,52 @@ function addCard() {
 }
 
 function renderCards() {
-    const grid = document.getElementById("cardsGrid");
-    grid.innerHTML = "";
-
-    users[currentUser].folders[currentFolder].forEach((card, index) => {
+    cardsGrid.innerHTML = "";
+    users[currentUser].folders[currentFolder].forEach((c, i) => {
         const div = document.createElement("div");
         div.className = "card-preview";
-        div.textContent = card.q;
-        div.onclick = () => openFullscreen(index);
-        grid.appendChild(div);
+        div.textContent = c.q;
+        div.onclick = () => openFullscreen(i);
+        cardsGrid.appendChild(div);
     });
 }
 
+// ===== FULLSCREEN =====
 function openFullscreen(index) {
     currentCardIndex = index;
-    showQuestion = true;
-    document.getElementById("fullscreen").style.display = "flex";
+    flipped = false;
+    fullscreen.style.display = "flex";
     renderFullscreen();
 }
 
 function closeFullscreen() {
-    document.getElementById("fullscreen").style.display = "none";
+    fullscreen.style.display = "none";
 }
 
 function renderFullscreen() {
     const card = users[currentUser].folders[currentFolder][currentCardIndex];
-    const el = document.getElementById("card");
-    el.classList.remove("flipped");
-    el.textContent = showQuestion ? card.q : card.a;
+    document.getElementById("card").classList.remove("flipped");
+    document.getElementById("cardFront").textContent = card.q;
+    document.getElementById("cardBack").textContent = card.a;
 }
 
 function flipCard() {
-    showQuestion = !showQuestion;
+    flipped = !flipped;
     document.getElementById("card").classList.toggle("flipped");
-    renderFullscreen();
 }
 
 function nextCard() {
     const cards = users[currentUser].folders[currentFolder];
     currentCardIndex = (currentCardIndex + 1) % cards.length;
-    showQuestion = true;
+    flipped = false;
     renderFullscreen();
 }
 
 function prevCard() {
     const cards = users[currentUser].folders[currentFolder];
-    currentCardIndex = (currentCardIndex - 1 + cards.length) % cards.length;
-    showQuestion = true;
+    currentCardIndex =
+        (currentCardIndex - 1 + cards.length) % cards.length;
+    flipped = false;
     renderFullscreen();
 }
 
@@ -149,6 +140,4 @@ function save() {
 }
 
 // ===== AUTOLOGIN =====
-if (currentUser && users[currentUser]) {
-    showApp();
-}
+if (currentUser && users[currentUser]) showApp();
