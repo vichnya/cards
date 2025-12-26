@@ -1,18 +1,32 @@
-// ====== ХРАНЕНИЕ ДАННЫХ (ЛОКАЛЬНЫЙ КОМПЬЮТЕР) ======
+// =================================================
+// ХРАНЕНИЕ ДАННЫХ (ЛОКАЛЬНЫЙ КОМПЬЮТЕР / БРАУЗЕР)
+// =================================================
 let users = JSON.parse(localStorage.getItem("users")) || {};
 let currentUser = localStorage.getItem("currentUser");
 
-// ====== СОСТОЯНИЕ ======
+// =================================================
+// СОСТОЯНИЕ ПРИЛОЖЕНИЯ
+// =================================================
 let currentFolder = null;
 let currentCardIndex = 0;
 let showQuestion = true;
 
-// ====== АВТОРИЗАЦИЯ ======
+// =================================================
+// АВТОРИЗАЦИЯ
+// =================================================
 function register() {
-    const email = emailInput().value;
-    const password = passwordInput().value;
+    const email = emailInput().value.trim();
+    const password = passwordInput().value.trim();
 
-    if (!email || !password || users[email]) return;
+    if (!email || !password) {
+        alert("Введите email и пароль");
+        return;
+    }
+
+    if (users[email]) {
+        alert("Аккаунт с таким email уже существует");
+        return;
+    }
 
     users[email] = {
         password: password,
@@ -20,14 +34,22 @@ function register() {
     };
 
     saveUsers();
-    alert("Аккаунт создан");
+    alert("Аккаунт успешно создан");
 }
 
 function login() {
-    const email = emailInput().value;
-    const password = passwordInput().value;
+    const email = emailInput().value.trim();
+    const password = passwordInput().value.trim();
 
-    if (!users[email] || users[email].password !== password) return;
+    if (!email || !password) {
+        alert("Введите email и пароль");
+        return;
+    }
+
+    if (!users[email] || users[email].password !== password) {
+        alert("Неверный email или пароль");
+        return;
+    }
 
     localStorage.setItem("currentUser", email);
     currentUser = email;
@@ -55,9 +77,11 @@ function passwordInput() {
     return document.getElementById("password");
 }
 
-// ====== ПАПКИ ======
+// =================================================
+// ПАПКИ
+// =================================================
 function createFolder() {
-    const name = document.getElementById("folderName").value;
+    const name = document.getElementById("folderName").value.trim();
     if (!name) return;
 
     users[currentUser].folders[name] = [];
@@ -91,10 +115,12 @@ function openFolder(name) {
     renderCard();
 }
 
-// ====== КАРТОЧКИ ======
+// =================================================
+// КАРТОЧКИ
+// =================================================
 function addCard() {
-    const q = document.getElementById("question").value;
-    const a = document.getElementById("answer").value;
+    const q = document.getElementById("question").value.trim();
+    const a = document.getElementById("answer").value.trim();
     if (!q || !a) return;
 
     users[currentUser].folders[currentFolder].push({
@@ -146,12 +172,16 @@ function prevCard() {
     renderCard();
 }
 
-// ====== УТИЛИТЫ ======
+// =================================================
+// УТИЛИТЫ
+// =================================================
 function saveUsers() {
     localStorage.setItem("users", JSON.stringify(users));
 }
 
-// ====== АВТОВХОД ======
+// =================================================
+// АВТОВХОД
+// =================================================
 if (currentUser && users[currentUser]) {
     showApp();
 }
